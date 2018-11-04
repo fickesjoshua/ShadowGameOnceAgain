@@ -1,4 +1,4 @@
 sceneSetups:
-- path: Assets/Scene/TESTING TESTING TESTING.unity
+- path: Assets/Scene/Victory.unity
   isLoaded: 1
   isActive: 1
