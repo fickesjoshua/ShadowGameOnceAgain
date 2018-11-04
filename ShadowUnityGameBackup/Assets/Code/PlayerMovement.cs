@@ -2,46 +2,64 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class PlayerMovement : MonoBehaviour {
+public class PlayerMovement : MonoBehaviour
+{
 
-	public CharacterController2D controller;
+    public AudioSource source;
+    //public AudioClip runSound;
+    //public float runVolume = 1;
+    public AudioClip jumpSound;
+    public float jumpVolume = 1;
 
-	public float runSpeed = 40f;
 
-	float horizontalMove = 0f;
+    public CharacterController2D controller;
 
-	bool jump = false;
+    public float runSpeed = 40f;
+
+    float horizontalMove = 0f;
+
+    bool jump = false;
 
     Animator animator; //Get the animator connected to the player.
 
-	// Use this for initialization
-	void Start () {
+    // Use this for initialization
+    void Start()
+    {
         animator = GetComponent<Animator>();
-	}
-	
-	// Update is called once per frame
-	void Update () {
+        source = GetComponent<AudioSource>();
+        
+    }
 
-		horizontalMove = Input.GetAxisRaw ("Horizontal") * runSpeed;
+    // Update is called once per frame
+    void Update()
+    {
+
+        horizontalMove = Input.GetAxisRaw("Horizontal") * runSpeed;
 
         if (horizontalMove == 0) //Check if player isstanding still or moving and changes animation.
         {
             animator.SetBool("IsRunning", false);
-        } else
+            //source.Stop();
+        }
+        else
         {
             animator.SetBool("IsRunning", true);
+            //source.Play();
         }
 
-		if (Input.GetButtonDown ("Jump")) {
-			jump = true;
+        if (Input.GetButtonDown("Jump"))
+        {
+            jump = true;
             animator.SetTrigger("Jumps"); //Makes jump animation play.
+            source.PlayOneShot(jumpSound, jumpVolume);
         }
 
-	}
+    }
 
-	void FixedUpdate () {
+    void FixedUpdate()
+    {
 
-		controller.Move (horizontalMove * Time.fixedDeltaTime, false, jump);
-		jump = false;
-	}
+        controller.Move(horizontalMove * Time.fixedDeltaTime, false, jump);
+        jump = false;
+    }
 }
