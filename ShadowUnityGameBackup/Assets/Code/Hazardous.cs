@@ -6,13 +6,18 @@ using UnityEngine;
 
 public class Hazardous : MonoBehaviour {
 
+    private AudioSource source;
+    public AudioClip dieSound;
+    public float soundVolume = 1;
+
     bool dead = false;
     public int xRespawn = 0;
     public int yRespawn = 0;
 
     // Use this for initialization
     void Start () {
-	}
+        source = GetComponent<AudioSource>();
+    }
 
     //   void OnControllerColliderHit(ControllerColliderHit hit)
     //    {
@@ -31,7 +36,7 @@ public class Hazardous : MonoBehaviour {
             if (collision.gameObject.tag == "hazard")
             {
                 dead = true;
-            Debug.Log("found a dead thing");
+            //Debug.Log("found a dead thing");
             }
         }    
 
@@ -40,7 +45,8 @@ public class Hazardous : MonoBehaviour {
 
         if (dead)
         {
-            Debug.Log("omg im literally dying");
+            //Debug.Log("omg im literally dying");
+            source.PlayOneShot(dieSound, soundVolume);
             Vector2 v2 = new Vector2(xRespawn, yRespawn);
             transform.position = v2;
             dead = false;
