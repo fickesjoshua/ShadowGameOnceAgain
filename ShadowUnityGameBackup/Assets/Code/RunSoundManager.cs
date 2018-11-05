@@ -22,7 +22,7 @@ public class RunSoundManager : MonoBehaviour {
         {
             if (playing == false)
             {
-                Debug.Log("playing");
+                //Debug.Log("playing");
                 source.Play();
                 playing = true;
             }
@@ -31,7 +31,7 @@ public class RunSoundManager : MonoBehaviour {
         } else
         {
             source.Stop();
-            Debug.Log("Stopping");
+            //Debug.Log("Stopping");
             playing = false;
         }
 	}
